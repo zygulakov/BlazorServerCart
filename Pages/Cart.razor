@@ -1,0 +1,49 @@
+﻿@page "/cart"
+
+@using System.Collections.Generic
+@using Data
+@inject DataBase Db
+@inject CartService Cs
+
+<div class="cart" style="text-align: -webkit-center">
+	<p class="cart-info">
+		Thank you for shopping! You will receive an order confirmation via e-mail to confirm this order.
+		<br/>
+		Freight charges on your shopping cart are approximate. You will find that they are very close but we may correct the shipping costs before processing your order.
+	</p>
+	<h1 class="page-title">Shopping Cart</h1>
+	<div class="cart-items">
+		@if (items == null)
+		{
+			<p>Loading...</p>
+		}
+		else if (items.Count == 0)
+		{
+			<p>Your cart is empty!</p>
+		}
+		else
+		{
+			foreach (var item in items)
+			{
+				<CartItem item="@item" />
+			}
+		}
+	</div>
+	<div class="cart-buttons">
+		<button class="btn btn-default">Estimate Shipping</button>
+		<button class="btn btn-default checkout">CHECKOUT</button>
+		<button class="btn btn-default">Continue Shopping</button>
+	</div>
+</div>
+
+@code {
+	List<Item> items = null;
+
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+		items = await Task.Run(() => Db.GetItems());
+	}
+
+}

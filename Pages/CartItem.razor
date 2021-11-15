@@ -1,0 +1,41 @@
+﻿@using Data
+@inject CartService Cs
+<div class="item card-columns" style="width:500px;">
+
+	<img class="card-img" src="@Item.ImageLink" alt="Item Image" />
+	<div class="card-body">
+		<div class="detail">@Item.Detail</div>
+		<div class="unit">@Item.Unit</div>
+		<div class="weight">@Item.Weight</div>
+		<div class="price">@Item.Quantity x $@Item.Price</div>
+	</div>
+	<div class="">
+		<button class="btn btn-default" @onclick="IncreaseQuantity">+</button>
+		<div class="qunatity">@Item.Quantity</div>
+		<button class="btn btn-default" @onclick="DecreaseQuantity">-</button>
+	</div>
+	<div class="total-price">$@TotalPrice</div>
+</div>
+@code {
+	[Parameter]
+	public Item Item { get; set; }
+
+	public decimal TotalPrice { get => Item.Quantity * Item.Price; }
+
+	void IncreaseQuantity()
+	{
+		++Item.Quantity;
+		Cs.IncreaseCount();
+	}
+
+	void DecreaseQuantity()
+	{
+		if (Item.Quantity > 0)
+		{
+			--Item.Quantity;
+			Cs.DecreaseCount();
+			this.StateHasChanged();
+		}
+	}
+
+}
