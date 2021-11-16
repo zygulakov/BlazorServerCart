@@ -40,14 +40,18 @@ namespace BlazorApp.Data
 
 		public void IncreaseItem(Item item, int count)
 		{
-			Items.Find(i => i.Id == item.Id).Quantity += count;
+			item.Quantity += count;
 			NotifyStateChanged();
 		}
 
 		public void DecreaseItem(Item item, int count)
 		{
-			Items.Find(i => i.Id == item.Id).Quantity -= count;
-			NotifyStateChanged();
+
+			if (item.Quantity >= count)
+			{
+				item.Quantity -= count;
+				NotifyStateChanged();
+			}
 		}
 	}
 }
