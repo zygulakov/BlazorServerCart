@@ -1,5 +1,5 @@
 ﻿@using Data
-@inject CartService Cs
+@inject CartState CartState
 <div class="item card-columns" style="width:500px;">
 
 	<img class="card-img" src="@Item.ImageLink" alt="Item Image" />
@@ -24,18 +24,23 @@
 
 	void IncreaseQuantity()
 	{
-		++Item.Quantity;
-		Cs.IncreaseCount();
+		CartState.IncreaseItem(Item, 1);
 	}
 
 	void DecreaseQuantity()
 	{
-		if (Item.Quantity > 0)
-		{
-			--Item.Quantity;
-			Cs.DecreaseCount();
-			this.StateHasChanged();
-		}
+		CartState.DecreaseItem(Item, 1);
+	}
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		CartState.OnChange += () => InvokeAsync(StateHasChanged);
+	}
+
+	public void Dispose()
+	{
+		CartState.OnChange -= StateHasChanged;
 	}
 
 }

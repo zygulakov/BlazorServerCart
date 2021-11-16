@@ -2,13 +2,12 @@
 
 @using System.Collections.Generic
 @using Data
-@inject DataBase Db
-@inject CartService Cs
+@inject CartState CartState
 
 <div class="cart" style="text-align: -webkit-center">
 	<p class="cart-info">
 		Thank you for shopping! You will receive an order confirmation via e-mail to confirm this order.
-		<br/>
+		<br />
 		Freight charges on your shopping cart are approximate. You will find that they are very close but we may correct the shipping costs before processing your order.
 	</p>
 	<h1 class="page-title">Shopping Cart</h1>
@@ -40,10 +39,17 @@
 	List<Item> items = null;
 
 
-	protected override async Task OnInitializedAsync()
+	protected override void OnInitialized()
 	{
-		await base.OnInitializedAsync();
-		items = await Task.Run(() => Db.GetItems());
+		items = CartState.Items;
+		base.OnInitialized();
+		CartState.OnChange += () => InvokeAsync(StateHasChanged);
+	}
+
+
+	public void Dispose()
+	{
+		CartState.OnChange -= StateHasChanged;
 	}
 
 }
