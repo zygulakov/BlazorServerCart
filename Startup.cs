@@ -28,6 +28,7 @@ namespace BlazorApp
 		{
 			services.AddRazorPages();
 			services.AddServerSideBlazor();
+			services.AddTelerikBlazor();
 			services.AddSingleton<DataBase>();
 			services.AddSingleton<CartState>();
 		}

@@ -14,13 +14,15 @@
 		<div class="qunatity">@Item.Quantity</div>
 		<button class="btn btn-default" @onclick="DecreaseQuantity">-</button>
 	</div>
-	<div class="total-price">$@TotalPrice</div>
+	<div @ref="TotalPriceRef" class="total-price">$@TotalPrice</div>
 </div>
 @code {
 	[Parameter]
 	public Item Item { get; set; }
 
 	public decimal TotalPrice { get => Item.Quantity * Item.Price; }
+
+	ElementReference TotalPriceRef;
 
 	void IncreaseQuantity()
 	{
