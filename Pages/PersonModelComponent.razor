@@ -1,0 +1,28 @@
+﻿@using Data.Models
+@using System.Reflection
+@using System.Collections
+
+<TelerikStackLayout Orientation="StackLayoutOrientation.Vertical" Height="100%">
+
+	@foreach (PropertyInfo property in classProps)
+	{
+		<div>
+			<label>@property.Name</label>
+			<TelerikTextBox Value="@AnyModel.GetType().GetProperty(property.Name).GetValue(AnyModel).ToString()"></TelerikTextBox>
+		</div>
+	}
+
+</TelerikStackLayout>
+
+@code {
+	[Parameter]
+	public object AnyModel { get; set; }
+
+	List<PropertyInfo> classProps;
+
+	protected override void OnInitialized()
+	{
+		classProps = AnyModel.GetType().GetProperties().ToList();
+		base.OnInitialized();
+	}
+}

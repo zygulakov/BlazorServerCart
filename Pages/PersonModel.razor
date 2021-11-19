@@ -1,0 +1,23 @@
+﻿@page "/personmodel"
+@using Data.Models
+
+<BlazorApp.Pages.PersonModelComponent AnyModel="@Kratos">
+
+</BlazorApp.Pages.PersonModelComponent>
+
+
+@code{
+	Person Kratos = null;
+	protected override void OnInitialized()
+	{
+		Kratos = new Person()
+		{
+			FirstName = "Kratos",
+			LastName = "The Warior",
+			Age = 50,
+			Married = true
+		};
+		base.OnInitialized();
+	}
+
+}
