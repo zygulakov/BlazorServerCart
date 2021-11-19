@@ -1,0 +1,20 @@
+﻿@page "/dynamiccomponent"
+@using System.Reflection
+
+<h3>Dynamic Component</h3>
+<div>
+	<ErrorBoundary>
+			<DynamicComponent Type="@AnyType" />
+	</ErrorBoundary>
+	<ErrorBoundary>
+			<DynamicComponent Type="@typeof(Data.DataBase)" />
+	</ErrorBoundary>
+</div>
+@code {
+	Type AnyType;
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		AnyType = typeof(Pages.StackLayout);
+	}
+}

@@ -1,0 +1,14 @@
+﻿@page "/modifytitle"
+<h3>Modify Html Title</h3>
+
+<PageTitle>@title</PageTitle>
+
+@code {
+	private string title;
+
+	protected override void OnInitialized()
+	{
+		title = "Title changed";
+		base.OnInitialized();
+	}
+}

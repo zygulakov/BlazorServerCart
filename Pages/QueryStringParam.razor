@@ -1,0 +1,14 @@
+﻿@page "/querystring"
+
+<h3>Blazor Query String Component Parameters</h3>
+
+@for (int i = 0; i <= 10; i++)
+{
+	<h1>@Word</h1>
+}
+
+@code {
+	[Parameter]
+	[SupplyParameterFromQuery(Name = "word")]
+	public string Word { get; set; }
+}
