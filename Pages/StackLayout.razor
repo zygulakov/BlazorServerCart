@@ -6,7 +6,7 @@
 	</div>
 	<TelerikStackLayout Orientation="StackLayoutOrientation.Horizontal">
 		<div class="green">
-			Navigation<br/>
+			Navigation<br />
 			console on March 13, 2007, it is the second installment in the God of War series, the sixth
 			chronologically, and the sequel to 2005's God of War. The game is based on Greek mythology and
 			set in ancient Greece, with vengeance as its central motif. The player character is protagonist
@@ -24,15 +24,29 @@
 			Right side content
 		</div>
 	</TelerikStackLayout>
-	<div class="purple">
-		Footer<br/>
+	<div class="@ClassName">
+		Footer<br />
 		console on March 13, 2007, it is the second installment in the God of War series, the sixth
 		chronologically, and the sequel to 2005's God of War. The game is based on Greek mythology and
 		set in ancient Greece, with vengeance as its central motif. The player character is protagonist
 		Kratos, the new God of War who killed the former, Ares. Kratos is betray
 	</div>
 </TelerikStackLayout>
-
+<button @onclick=ChangeClass>change CSS class</button>
+@code {
+	Random randomizer = new Random();
+	public string ClassName { get; set; } = "purple";
+	List<string> colors = new()
+		{
+			"red",
+			"green",
+			"yellow",
+		};
+	public void ChangeClass()
+	{
+		ClassName = colors[(int)randomizer.NextInt64((long)colors.Count)];
+	}
+}
 <style>
 	.red {
 		background-color: #dc3545;
