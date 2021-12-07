@@ -1,0 +1,53 @@
+﻿@page "/typevalueconverter"
+@using System.ComponentModel
+@using System.Globalization
+
+<h3>TypeValueConverter</h3>
+
+<input type="text" @bind-value=@AnyValue />
+
+<h3>@AnyValue?.Value</h3>
+
+@code {
+
+
+	DataTypeControlInfo DataTypeControl { get; set; } = new DataTypeControlInfo();
+	public CustomObject AnyValue { get; set; }
+
+	protected override void OnInitialized()
+	{
+		DataTypeControl.BindablePropertyValue = new InputBindablePropertyValue(123);
+		base.OnInitialized();
+	}
+
+
+	[TypeConverter(typeof(CustomTypeConverter))]
+	public class CustomObject
+	{
+		public object Value { get; set; }
+	}
+
+	public class CustomTypeConverter : System.ComponentModel.TypeConverter
+	{
+		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+		{
+			return true;
+		}
+
+		public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+		{
+			return new CustomObject(){Value = value};
+		}
+
+		public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+		{
+			return true;
+		}
+
+		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+		{
+			return ((CustomObject)value)?.Value;
+		}
+	}
+
+}

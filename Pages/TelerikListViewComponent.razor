@@ -1,0 +1,39 @@
+﻿@page "/listview"
+@using BlazorApp.Data.Models
+@using System.Collections.ObjectModel
+
+<h3>TelerikListViewComponent</h3>
+
+<ListViewItemComponent Items="@ListViewData" Orientation="col" ItemOrientation="row"></ListViewItemComponent>
+<button @onclick="AddItem">Add Item</button>
+
+@code {
+	List<BlazorApp.Data.Models.CartItem> ListViewData { get; set; } = new List<BlazorApp.Data.Models.CartItem>(Enumerable.Range(1, 5).Select(x => new BlazorApp.Data.Models.CartItem
+		{
+			Id = x,
+			Name = "NAME",
+			Descr = "DESCR",
+			Price = "PRICE"
+		}));
+
+	void AddItem()
+	{
+		ListViewData.Add(new Data.Models.CartItem()
+			{
+				Id = 10,
+				Name = "NAME",
+				Descr = "DESCR",
+				Price = "PRICE"
+			});
+	}
+}
+
+<style>
+	.col{
+		border:solid 1px grey;
+	}
+		.row{
+		border:solid 1px grey;
+	}
+</style>
+
