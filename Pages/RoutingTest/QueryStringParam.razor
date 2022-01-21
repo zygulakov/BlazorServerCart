@@ -1,0 +1,10 @@
+﻿@page "/testquerystring"
+
+<h3>Blazor Query String Component Parameters</h3>
+	<h1>Selected User: @Word</h1>
+
+@code {
+	[Parameter]
+	[SupplyParameterFromQuery(Name = "user")]
+	public string Word { get; set; }
+}

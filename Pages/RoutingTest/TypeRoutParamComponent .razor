@@ -1,0 +1,19 @@
+﻿@page "/user/{Id:int}/{Option:bool?}"
+
+<p>
+    Id: @Id
+</p>
+<input type="text" @bind="@text" @bind:event="oninput"/>
+<p>
+    Option: @Option
+</p>
+
+@code {
+    string text;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
+    public bool Option { get; set; }
+}

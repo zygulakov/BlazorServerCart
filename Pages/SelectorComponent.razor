@@ -1,9 +1,14 @@
 ﻿@page "/test"
 
 <h3>@Label</h3>
-<select>
-	@foreach(var item in Items)
-	{
-		<option>@item</option>
-	}
-</select>
+<TypeParamComponent @ref="Ref" TValue="string"></TypeParamComponent>
+
+@code{
+    TypeParamComponent<string> Ref;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        
+    }
+}

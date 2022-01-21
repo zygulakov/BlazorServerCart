@@ -1,0 +1,14 @@
+﻿@page "/RoutParam/{text?}"
+
+<h1>Param text: @Text</h1>
+
+@code {
+    [Parameter]
+    public string? Text { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Text = Text ?? "DefaultValue";
+        base.OnParametersSet();
+    }
+}
